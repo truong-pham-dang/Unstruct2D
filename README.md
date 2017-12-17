@@ -5,4 +5,5 @@ Tested platforms:
 1. gfortran 4.8.4 (Linux Ubuntu 14.04).
 2. Code::Blocks 16.10 IDE (MinGW gfortran 4.9.2). 
 
-[linkname](https://www.youtube.com/watch?v=NVTPF5-1LKs)
+Some examples:
+[Laminar flow over NACA 0012 airfoil](https://www.youtube.com/watch?v=NVTPF5-1LKs)
