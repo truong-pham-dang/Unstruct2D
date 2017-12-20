@@ -68,9 +68,14 @@ subroutine PlotSurfaces
   open(unit=ifSurf, file=fname, status="unknown", action="write", iostat=errFlag)
   if (errFlag /= 0) call ErrorMessage( "cannot open plot file (surfaces)" )
 
-  !write(citer,'(I8.8)') iter
-  !open(unit = 20, file = 'SKIN_FRICTION_COEF'//trim(citer)//'.DAT')
-  !write(20,*) 'VARIABLES=X,Y,Cf'
+! Truong ajoute 20/12/2017: write skin friction coefficients in Tecplot format
+! add
+  if (lquant(12) == "Y") then
+    write(citer,'(I8.8)') iter
+    open(unit = 20, file = 'SKIN_FRICTION_COEF_'//trim(citer)//'.DAT')
+    write(20,*) 'VARIABLES=X,Y,Cf'
+  endif
+! end add
 
 ! header
 
@@ -254,6 +259,13 @@ subroutine PlotSurfaces
 
         write(ifSurf,1020) (varout(m), m=1,nquant)
 
+! Truong ajoute 20/12/2017
+! add
+        if (lquant(12) == "Y") then
+            write(20,*) varout(1), varout(2), cf
+        end if
+! end add
+
       enddo ! node
 
     endif ! itype
@@ -264,6 +276,8 @@ subroutine PlotSurfaces
   enddo ! ib
 
   close(unit=ifSurf)
+
+  close(20)
 
 1000  format(A,/,"1",/,"Boundaries",/,I3,I3,/,"x [m]",/,"y [m]")
 1010  format(I6," 0",/,"0 0 0",/,A)
